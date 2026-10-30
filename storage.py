@@ -30,3 +30,20 @@ def baca_data_txt(filename):
     except Exception as e:
         print(f"[ERROR Storage] Gagal membaca file {filename}: {e}")
     return lines
+
+def inisialisasi_file_dasar():
+    """
+    Membuat file penyimpanan default jika file belum ada di komputer.
+    """
+    files_default = {
+        "users.txt": "guru|123|guru|Ibu Guru Ani\nortu|123|orang_tua|Bapak Ahmad",
+        "jurnal.txt": ",
+        "penjemputan.txt": "",
+        "tumbuh_kembang.txt": ""
+    }
+    
+    for filename, content in files_default.items():
+        if not os.path.exists(filename):
+            with open(filename, 'w', encoding='utf-8') as file:
+                if content:
+                    file.write(content + '\n')
