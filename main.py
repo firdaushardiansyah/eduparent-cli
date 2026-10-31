@@ -1,4 +1,5 @@
 # main.py
+#pastika semua disini seragam dari penulisan nama file, nama fungsi, dan nama variabel agar tidak terjadi error dan dari peringatan dan lain lain nya
 import os
 from storage import simpan_data_txt, baca_data_txt, inisialisasi_file_dasar
 
@@ -95,3 +96,32 @@ def menu_guru(user_info):
             break
         else:
             print("[ERROR] Pilihan tidak valid. Silakan pilih menu antara 1 hingga 6.")
+
+
+def menu_orangtua(user_info):
+    """
+    Menampilkan menu untuk pengguna dengan peran orangtua.
+    """
+    while True:
+        print("\n" +"="*45)
+        print(f"   PANEL ORANGTUA - Selamat Datang, {user_info['nama']}!")
+        print("="*45)
+        print("1. Lihat Laporan Jurnal & Presensi Anak")
+        print("2. Cek Status Penjemputan Anak Hari Ini")
+        print("3. Lihat Perkembangan Tumbuh Kembang Anak")
+        print("4. Logout / Keluar")
+        print("="*45)
+
+        pilihan = input("Pilih menu (1-4): ").strip()
+
+        if pilihan == '1':
+            print("\n[INFO] Fitur Lihat Laporan Jurnal & Presensi Anak belum tersedia. Silakan implementasikan di modul data_master.")
+        elif pilihan == '2':
+            print("\n[INFO] Fitur Cek Status Penjemputan Anak Hari Ini belum tersedia. Silakan implementasikan di modul fitur_harian.")
+        elif pilihan == '3':
+            print("\n[INFO] Fitur Lihat Perkembangan Tumbuh Kembang Anak belum tersedia. Silakan implementasikan di modul fitur_harian.")
+        elif pilihan == '4':
+            print("\n[INFO] Logout berhasil. Sampai jumpa!")
+            break
+        else:
+            print("[ERROR] Pilihan tidak valid. Silakan pilih menu antara 1 hingga 4.")
