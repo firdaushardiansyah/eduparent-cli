@@ -51,3 +51,47 @@ def autentikasi_login()
                 return {"username": username, "role": role, "nama": nama_lengkap}
     print("\n[ERROR] Username atau password salah.")
     return None
+
+def menu_guru(user_info):
+    """
+    Menampilkan menu untuk pengguna dengan peran guru.
+    """
+    while True:
+        print("\n" +"="*45)
+        print(f"   PANEL GURU - Selamat Datang, {user_info['nama']}!")
+        print("="*45)
+        print("1. Lihat & Cari Data Master Siswa")
+        print("2. Input Presensi & Jurnal Harian")
+        print("3. Verifikasi Status Penjemputan Anak")
+        print("4. Input Evaluasi Tumbuh Kembang (TB/BB)")
+        print("5. Lihat Urutan/Ranking Z-Score Siswa")
+        print("6. Logout / Keluar")
+        print("="*45)
+
+        pilihan = input("Pilih menu (1-6): ").strip()
+
+        if pilihan == '1':
+            print("\n--- MENU DATA MASTER SISWA ---")
+            print("a. Tampilkan Semua Siswa")
+            print("b. Cari Siswa Berdasarkan NISN")
+            sub_pilihan = input("Pilih menu (a/b): ").strip().lower()
+            if sub_pilihan == 'a':
+                tampilkan_semua_siswa()
+            elif sub_pilihan == 'b':
+                nisn = input("Masukkan NISN Siswa: ").strip()
+                cari_siswa_by_nisn(nisn)
+            else:
+                print("[ERROR] Pilihan tidak valid. Silakan pilih 'a' atau 'b'.")
+        elif pilihan == '2':
+            input_presensi_jurnal()
+        elif pilihan == '3':
+            verifikasi_penjemputan()
+        elif pilihan == '4':
+            input_tumbuh_kembang()
+        elif pilihan == '5':
+            tampilkan_rangking_zscore()
+        elif pilihan == '6':
+            print("\n[INFO] Logout berhasil. Sampai jumpa!")
+            break
+        else:
+            print("[ERROR] Pilihan tidak valid. Silakan pilih menu antara 1 hingga 6.")
