@@ -30,3 +30,24 @@ except ImportError:
 
     def tampilkan_rangking_zscore():
         print("\n[INFO] Fungsi tampilkan_rangking_zscore() belum tersedia. Silakan implementasikan di modul fitur_evaluasi.")
+
+def autentikasi_login()
+    """
+    Fungsi untuk memvalidasi kredensial login penggunna dari file usenrs.txt.
+    """
+    print("\n===========================================")
+    print("      AUTENTIKASI MASUK - EDUPARENT        ")
+    print("===========================================")
+    username_input = input("Masukkan Username : ").strip()
+    password_input = input("Masukkan Password : ").strip()
+
+    data_users = baca_data_txt("users.txt")
+
+    for line in data_users:
+        parts = line.split('|')
+        if len(parts) >= 4:
+            username, password, role, nama_lengkap = parts[0], parts[1], parts[2], parts[3]
+            if username_input == username and password_input == password:
+                return {"username": username, "role": role, "nama": nama_lengkap}
+    print("\n[ERROR] Username atau password salah.")
+    return None
