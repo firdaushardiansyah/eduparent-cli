@@ -1,5 +1,4 @@
 # main.py
-#pastika semua disini seragam dari penulisan nama file, nama fungsi, dan nama variabel agar tidak terjadi error dan dari peringatan dan lain lain nya
 import os
 from storage import simpan_data_txt, baca_data_txt, inisialisasi_file_dasar
 
@@ -125,3 +124,37 @@ def menu_orangtua(user_info):
             break
         else:
             print("[ERROR] Pilihan tidak valid. Silakan pilih menu antara 1 hingga 4.")
+
+def main():
+    """
+    Fungsi utama untuk menjalankan program EduParent.
+    """
+    inisialisasi_file_dasar()  # Pastikan file dasar tersedia sebelum login
+
+    while True:
+        print("\n" +"="*45)
+        print("      SELAMAT DATANG DI EDUPARENT       ")
+        print("="*45)
+        print("1. Login Sistem")
+        print("2. Keluar Sistem")
+        print("="*45)
+
+        opsi_awal = input("Pilih opsi (1-2): ").strip()
+
+        if opsi_awal == '1':
+            user_login = autentikasi_login()
+            if user_login:
+                print(f"\n[INFO] Login berhasil sebagai {user_login['role'].upper()}. Selamat datang, {user_login['nama']}!")
+                if user_login['role'] == 'guru':
+                    menu_guru(user_login)
+                elif user_login['role'] == 'orang_tua':
+                    menu_orangtua(user_login)
+                else:
+                    print("[ERROR] Username atau Password salah! Silakan coba lagi.")
+        elif opsi_awal == '2':
+            print("\n[INFO] Terima kasih telah menggunakan EduParent. Sampai jumpa!")
+            break
+        else:
+            print("[ERROR] Pilihan tidak valid. Silakan pilih opsi 1 atau 2.")
+if __name__ == "__main__":
+    main()
