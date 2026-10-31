@@ -31,7 +31,7 @@ except ImportError:
     def tampilkan_rangking_zscore():
         print("\n[INFO] Fungsi tampilkan_rangking_zscore() belum tersedia. Silakan implementasikan di modul fitur_evaluasi.")
 
-def autentikasi_login()
+def autentikasi_login():
     """
     Fungsi untuk memvalidasi kredensial login penggunna dari file usenrs.txt.
     """

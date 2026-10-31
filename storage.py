@@ -37,7 +37,7 @@ def inisialisasi_file_dasar():
     """
     files_default = {
         "users.txt": "guru|123|guru|Ibu Guru Ani\nortu|123|orang_tua|Bapak Ahmad",
-        "jurnal.txt": ",
+        "jurnal.txt": "",
         "penjemputan.txt": "",
         "tumbuh_kembang.txt": ""
     }
