@@ -17,3 +17,15 @@ def cari_siswa(daftar, kata_kunci):
         if daftar[i]['nisn'] == kata_kunci.strip() or daftar[i]['nama'].lower() == kata:
             return daftar[i]
     return None
+
+def tampilkan_tabel_siswa():
+    # Menampilkan data siswa dalam bentuk tabel 
+    daftar = muat_siswa()
+    garis = '+' + '-' * 12 + '+' + '-' * 22 + '+' + '-' * 4 + '+' + '-' * 8 + '+'
+    print(garis)
+    print(f"|{'NISN':<12}|{'Nama':<22}|{'JK':<4}|{'Usia(bln)':<8}|")
+    print(garis)
+    for s in daftar:
+        print(f"|{s['nisn']:<12}|{s['nama']:<22}|{s['jenis_kelamin']:<4}|{s['usia_bulan']:<8}|")
+    print(garis)
+    print('Total siswa:', len(daftar)) 
