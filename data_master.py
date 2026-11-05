@@ -1,14 +1,38 @@
 # data_master.py
 import storage
 
-# Menyiapkan konstanta untuk kolom dan nama file CSV siswa
-HEADER_SISWA = ['nisn', 'nama', 'jenis_kelamin', 'usia_bulan', 'nama_ortu', 'penjemput_resmi']
-FILE_SISWA = 'siswa.csv'
+FILE_SISWA = 'siswa.txt'
 
 def muat_siswa():
-    # Membaca data dari file CSV menggunakan modul storage
-    data = storage.baca_csv(FILE_SISWA)
-    return data
+    # Membaca baris teks dari file menggunakan storage milik Firdaus
+    baris_teks = storage.baca_data_txt(FILE_SISWA)
+    daftar = []
+    
+    for baris in baris_teks:
+        # Format teks: nisn|nama|jenis_kelamin|usia_bulan|nama_ortu|penjemput_resmi
+        data_kolom = baris.split('|')
+        if len(data_kolom) == 6:
+            siswa = {
+                'nisn': data_kolom[0],
+                'nama': data_kolom[1],
+                'jenis_kelamin': data_kolom[2],
+                'usia_bulan': data_kolom[3],
+                'nama_ortu': data_kolom[4],
+                'penjemput_resmi': data_kolom[5]
+            }
+            daftar.append(siswa)
+            
+    # Jika file masih kosong, buatkan data contoh (dummy) otomatis
+    if len(daftar) == 0:
+        data_dummy = [
+            "0012345678|Aisyah Putri|P|48|Budi Santoso|Budi Santoso",
+            "0012345679|Rafi Pratama|L|52|Sari Dewi|Sari Dewi"
+        ]
+        for item in data_dummy:
+            storage.simpan_data_txt(FILE_SISWA, item)
+        return muat_siswa() # Muat ulang setelah diisi data dummy
+        
+    return daftar
 
 def cari_siswa(daftar, kata_kunci):
     # Menggunakan Linear Search untuk mencari berdasarkan NISN atau Nama
@@ -19,7 +43,7 @@ def cari_siswa(daftar, kata_kunci):
     return None
 
 def tampilkan_tabel_siswa():
-    # Menampilkan data siswa dalam bentuk tabel 
+    # Menampilkan data siswa dalam bentuk tabel rapi di terminal
     daftar = muat_siswa()
     garis = '+' + '-' * 12 + '+' + '-' * 22 + '+' + '-' * 4 + '+' + '-' * 8 + '+'
     print(garis)
@@ -28,25 +52,30 @@ def tampilkan_tabel_siswa():
     for s in daftar:
         print(f"|{s['nisn']:<12}|{s['nama']:<22}|{s['jenis_kelamin']:<4}|{s['usia_bulan']:<8}|")
     print(garis)
-    print('Total siswa:', len(daftar)) 
+    print('Total siswa:', len(daftar))
 
 def tambah_siswa():
-    # Menambahkan data siswa baru ke file CSV
+    # Menambahkan data siswa baru ke file txt
     daftar = muat_siswa()
     nisn = input('NISN            : ').strip()
     if cari_siswa(daftar, nisn) is not None:
         print('NISN sudah terdaftar!')
         return
-    baru = {
-        'nisn': nisn,
-        'nama': input('Nama            : ').strip(),
-        'jenis_kelamin': input('Jenis kelamin (L/P): ').strip().upper(),
-        'usia_bulan': input('Usia (bulan)    : ').strip(),
-        'nama_ortu': input('Nama orang tua  : ').strip(),
-        'penjemput_resmi': input('Penjemput resmi : ').strip(),
-    }
-    storage.tambah_baris_csv(FILE_SISWA, HEADER_SISWA, baru)
-    print('Siswa berhasil ditambahkan.')
+        
+    nama = input('Nama            : ').strip()
+    jk = input('Jenis kelamin (L/P): ').strip().upper()
+    usia = input('Usia (bulan)    : ').strip()
+    ortu = input('Nama orang tua  : ').strip()
+    penjemput = input('Penjemput resmi : ').strip()
+    
+    # Gabungkan data dengan pemisah '|' sesuai format storage txt
+    baris_baru = f"{nisn}|{nama}|{jk}|{usia}|{ortu}|{penjemput}"
+    
+    sukses = storage.simpan_data_txt(FILE_SISWA, baris_baru)
+    if sukses:
+        print('Siswa berhasil ditambahkan.')
+    else:
+        print('Gagal menyimpan siswa.')
 
 def menu_data_master():
     # Menu interaktif berbasis teks
@@ -70,7 +99,6 @@ def menu_data_master():
         else:
             print('Pilihan tidak valid. Silakan pilih 0-3.')
 
-# Bagian pemanggil utama agar menu otomatis muncul saat file dijalankan
 if __name__ == '__main__':
     print(">>> Membuka Menu Data Master...")
     menu_data_master()
