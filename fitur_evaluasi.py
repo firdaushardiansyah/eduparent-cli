@@ -179,7 +179,7 @@ def input_tumbuh_kembang():
     print(f"\nZ-Score TB/U: {zscore_tersimpan:.2f}")
     print(f"Status gizi: {status_gizi}")
     print(
-        "[PERINGATAN] Nilai acuan pada modul masih menggunakan contoh dari dokumen panduan & briefign."
+        "[PERINGATAN] Nilai acuan pada modul masih menggunakan contoh dari dokumen panduan & briefing."
     )
     print("[INFO] Data evaluasi berhasil disimpan.")
 
